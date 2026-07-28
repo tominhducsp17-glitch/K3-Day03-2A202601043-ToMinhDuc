@@ -1,0 +1,35 @@
+{
+  "name": "react_v1_failed_trace_malformed_args",
+  "run_id": "example-react-v1-malformed-args",
+  "agent_version": "v1",
+  "provider": "scripted",
+  "model": "scripted-recovery",
+  "user_input": "Is iPhone available?",
+  "expected_path": [
+    "check_stock"
+  ],
+  "actual_path": [],
+  "first_divergence": "Step 1 parser could not parse single-quoted args in Action: check_stock({'item_name': 'iPhone'}).",
+  "error_class": "Parser",
+  "steps": [
+    {
+      "step": 1,
+      "llm_output": "Thought: Need stock.\nAction: check_stock({'item_name': 'iPhone'})",
+      "observation": {
+        "ok": false,
+        "error": "parse_error",
+        "message": "No valid Action or Final Answer found."
+      }
+    },
+    {
+      "step": 2,
+      "llm_output": "Final Answer: I cannot verify stock.",
+      "final_answer": "I cannot verify stock."
+    }
+  ],
+  "metrics": {
+    "steps": 2,
+    "tool_calls": 0,
+    "status": "failed"
+  }
+}

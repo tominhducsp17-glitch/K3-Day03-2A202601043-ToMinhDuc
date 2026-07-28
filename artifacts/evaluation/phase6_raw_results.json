@@ -1,0 +1,422 @@
+{
+  "mode": "deterministic_scripted",
+  "cases": [
+    {
+      "case_id": 1,
+      "express_input": "What is your return policy?",
+      "full_input": "What is your return policy?",
+      "expected_agent_path": [],
+      "chatbot": {
+        "answer": "You can return eligible products within 7 days if they are unused and include the receipt.",
+        "classification": "correct",
+        "llm_calls": 1,
+        "tool_calls": 0,
+        "rubric": {
+          "factual_correctness": 2,
+          "grounding": 1,
+          "tool_selection": 2,
+          "safety": 2,
+          "completeness": 2,
+          "termination": 2
+        },
+        "total_score": 11
+      },
+      "agent": {
+        "answer": "You can return eligible products within 7 days if they are unused and include the receipt.",
+        "tool_path": [],
+        "steps": 1,
+        "tool_calls": 0,
+        "path_matches_expected": true,
+        "rubric": {
+          "factual_correctness": 2,
+          "grounding": 1,
+          "tool_selection": 2,
+          "safety": 2,
+          "completeness": 2,
+          "termination": 2
+        },
+        "total_score": 11,
+        "trace": [
+          {
+            "run_id": "23b7cc3f-4e68-4bbe-a9a4-b1f5da162516",
+            "agent_version": "v2",
+            "step": 1,
+            "prompt": "Question: What is your return policy?",
+            "llm_output": "Final Answer: You can return eligible products within 7 days if they are unused and include the receipt.",
+            "final_answer": "You can return eligible products within 7 days if they are unused and include the receipt."
+          }
+        ]
+      },
+      "winner": "chatbot"
+    },
+    {
+      "case_id": 2,
+      "express_input": "What are your working hours?",
+      "full_input": "What are your working hours?",
+      "expected_agent_path": [],
+      "chatbot": {
+        "answer": "Our working hours are 8:00-17:00 from Monday to Friday.",
+        "classification": "correct",
+        "llm_calls": 1,
+        "tool_calls": 0,
+        "rubric": {
+          "factual_correctness": 2,
+          "grounding": 1,
+          "tool_selection": 2,
+          "safety": 2,
+          "completeness": 2,
+          "termination": 2
+        },
+        "total_score": 11
+      },
+      "agent": {
+        "answer": "Our working hours are 8:00-17:00 from Monday to Friday.",
+        "tool_path": [],
+        "steps": 1,
+        "tool_calls": 0,
+        "path_matches_expected": true,
+        "rubric": {
+          "factual_correctness": 2,
+          "grounding": 1,
+          "tool_selection": 2,
+          "safety": 2,
+          "completeness": 2,
+          "termination": 2
+        },
+        "total_score": 11,
+        "trace": [
+          {
+            "run_id": "b6b64229-021c-4622-b752-0b98b6de652d",
+            "agent_version": "v2",
+            "step": 1,
+            "prompt": "Question: What are your working hours?",
+            "llm_output": "Final Answer: Our working hours are 8:00-17:00 from Monday to Friday.",
+            "final_answer": "Our working hours are 8:00-17:00 from Monday to Friday."
+          }
+        ]
+      },
+      "winner": "chatbot"
+    },
+    {
+      "case_id": 3,
+      "express_input": "I want to buy 2 iPhones using code 'WINNER' and ship to Hanoi. What is the total price?",
+      "full_input": "I want to buy 2 iPhones using code 'WINNER' and ship to Hanoi. The package weight is 0.8 kg. What is the total price?",
+      "expected_agent_path": [
+        "check_stock",
+        "get_discount",
+        "calc_shipping"
+      ],
+      "chatbot": {
+        "answer": "I cannot verify live inventory, coupon validity, shipping cost, or the final total without business data. Please check stock, coupon, and shipping first.",
+        "classification": "safe_fallback",
+        "llm_calls": 1,
+        "tool_calls": 0,
+        "rubric": {
+          "factual_correctness": 1,
+          "grounding": 0,
+          "tool_selection": 0,
+          "safety": 2,
+          "completeness": 1,
+          "termination": 2
+        },
+        "total_score": 6
+      },
+      "agent": {
+        "answer": "Total = (25,000,000 * 2) * 0.9 + 38,000 = 45,038,000 VND",
+        "tool_path": [
+          "check_stock",
+          "get_discount",
+          "calc_shipping"
+        ],
+        "steps": 4,
+        "tool_calls": 3,
+        "path_matches_expected": true,
+        "rubric": {
+          "factual_correctness": 2,
+          "grounding": 2,
+          "tool_selection": 2,
+          "safety": 2,
+          "completeness": 2,
+          "termination": 2
+        },
+        "total_score": 12,
+        "trace": [
+          {
+            "run_id": "1afe628d-7297-4180-b38f-ffbe185d3ba5",
+            "agent_version": "v2",
+            "step": 1,
+            "prompt": "Question: I want to buy 2 iPhones using code 'WINNER' and ship to Hanoi. The package weight is 0.8 kg. What is the total price?",
+            "llm_output": "Thought: Need price and stock.\nAction: check_stock({\"item_name\": \"iPhone\"})",
+            "action": {
+              "tool_name": "check_stock",
+              "args": {
+                "item_name": "iPhone"
+              }
+            },
+            "observation": {
+              "ok": true,
+              "item_name": "iPhone",
+              "price": 25000000,
+              "stock": 15,
+              "weight_kg": 0.4,
+              "status": "in_stock"
+            }
+          },
+          {
+            "run_id": "1afe628d-7297-4180-b38f-ffbe185d3ba5",
+            "agent_version": "v2",
+            "step": 2,
+            "prompt": "Question: I want to buy 2 iPhones using code 'WINNER' and ship to Hanoi. The package weight is 0.8 kg. What is the total price?\n\nThought: Need price and stock.\nAction: check_stock({\"item_name\": \"iPhone\"})\nObservation: {\"ok\": true, \"item_name\": \"iPhone\", \"price\": 25000000, \"stock\": 15, \"weight_kg\": 0.4, \"status\": \"in_stock\"}",
+            "llm_output": "Thought: Need coupon.\nAction: get_discount({\"coupon_code\": \"WINNER\"})",
+            "action": {
+              "tool_name": "get_discount",
+              "args": {
+                "coupon_code": "WINNER"
+              }
+            },
+            "observation": {
+              "ok": true,
+              "coupon_code": "WINNER",
+              "discount_percent": 10,
+              "valid": true
+            }
+          },
+          {
+            "run_id": "1afe628d-7297-4180-b38f-ffbe185d3ba5",
+            "agent_version": "v2",
+            "step": 3,
+            "prompt": "Question: I want to buy 2 iPhones using code 'WINNER' and ship to Hanoi. The package weight is 0.8 kg. What is the total price?\n\nThought: Need price and stock.\nAction: check_stock({\"item_name\": \"iPhone\"})\nObservation: {\"ok\": true, \"item_name\": \"iPhone\", \"price\": 25000000, \"stock\": 15, \"weight_kg\": 0.4, \"status\": \"in_stock\"}\n\nThought: Need coupon.\nAction: get_discount({\"coupon_code\": \"WINNER\"})\nObservation: {\"ok\": true, \"coupon_code\": \"WINNER\", \"discount_percent\": 10, \"valid\": true}",
+            "llm_output": "Thought: Need shipping.\nAction: calc_shipping({\"weight\": 0.8, \"destination\": \"Hanoi\"})",
+            "action": {
+              "tool_name": "calc_shipping",
+              "args": {
+                "weight": 0.8,
+                "destination": "Hanoi"
+              }
+            },
+            "observation": {
+              "ok": true,
+              "weight": 0.8,
+              "destination": "Hanoi",
+              "shipping_cost": 38000,
+              "estimated_days": 1
+            }
+          },
+          {
+            "run_id": "1afe628d-7297-4180-b38f-ffbe185d3ba5",
+            "agent_version": "v2",
+            "step": 4,
+            "prompt": "Question: I want to buy 2 iPhones using code 'WINNER' and ship to Hanoi. The package weight is 0.8 kg. What is the total price?\n\nThought: Need price and stock.\nAction: check_stock({\"item_name\": \"iPhone\"})\nObservation: {\"ok\": true, \"item_name\": \"iPhone\", \"price\": 25000000, \"stock\": 15, \"weight_kg\": 0.4, \"status\": \"in_stock\"}\n\nThought: Need coupon.\nAction: get_discount({\"coupon_code\": \"WINNER\"})\nObservation: {\"ok\": true, \"coupon_code\": \"WINNER\", \"discount_percent\": 10, \"valid\": true}\n\nThought: Need shipping.\nAction: calc_shipping({\"weight\": 0.8, \"destination\": \"Hanoi\"})\nObservation: {\"ok\": true, \"weight\": 0.8, \"destination\": \"Hanoi\", \"shipping_cost\": 38000, \"estimated_days\": 1}",
+            "llm_output": "Final Answer: Total = (25,000,000 * 2) * 0.9 + 38,000 = 45,038,000 VND",
+            "final_answer": "Total = (25,000,000 * 2) * 0.9 + 38,000 = 45,038,000 VND"
+          }
+        ]
+      },
+      "winner": "agent"
+    },
+    {
+      "case_id": 4,
+      "express_input": "Can I buy 1 MacBook and ship to Saigon? How much?",
+      "full_input": "Can I buy 1 MacBook and ship to Saigon? How much?",
+      "expected_agent_path": [
+        "check_stock"
+      ],
+      "chatbot": {
+        "answer": "I cannot verify MacBook stock or calculate the live total without inventory and shipping data.",
+        "classification": "safe_fallback",
+        "llm_calls": 1,
+        "tool_calls": 0,
+        "rubric": {
+          "factual_correctness": 1,
+          "grounding": 0,
+          "tool_selection": 0,
+          "safety": 2,
+          "completeness": 1,
+          "termination": 2
+        },
+        "total_score": 6
+      },
+      "agent": {
+        "answer": "MacBook is out of stock, so I cannot confirm a purchase or total.",
+        "tool_path": [
+          "check_stock"
+        ],
+        "steps": 2,
+        "tool_calls": 1,
+        "path_matches_expected": true,
+        "rubric": {
+          "factual_correctness": 2,
+          "grounding": 2,
+          "tool_selection": 2,
+          "safety": 2,
+          "completeness": 2,
+          "termination": 2
+        },
+        "total_score": 12,
+        "trace": [
+          {
+            "run_id": "74aa6fd3-6632-4002-9bd2-7518a6d9953b",
+            "agent_version": "v2",
+            "step": 1,
+            "prompt": "Question: Can I buy 1 MacBook and ship to Saigon? How much?",
+            "llm_output": "Thought: Need stock first.\nAction: check_stock({\"item_name\": \"MacBook\"})",
+            "action": {
+              "tool_name": "check_stock",
+              "args": {
+                "item_name": "MacBook"
+              }
+            },
+            "observation": {
+              "ok": true,
+              "item_name": "MacBook",
+              "price": 35000000,
+              "stock": 0,
+              "weight_kg": 2.0,
+              "status": "out_of_stock"
+            }
+          },
+          {
+            "run_id": "74aa6fd3-6632-4002-9bd2-7518a6d9953b",
+            "agent_version": "v2",
+            "step": 2,
+            "prompt": "Question: Can I buy 1 MacBook and ship to Saigon? How much?\n\nThought: Need stock first.\nAction: check_stock({\"item_name\": \"MacBook\"})\nObservation: {\"ok\": true, \"item_name\": \"MacBook\", \"price\": 35000000, \"stock\": 0, \"weight_kg\": 2.0, \"status\": \"out_of_stock\"}",
+            "llm_output": "Final Answer: MacBook is out of stock, so I cannot confirm a purchase or total.",
+            "final_answer": "MacBook is out of stock, so I cannot confirm a purchase or total."
+          }
+        ]
+      },
+      "winner": "agent"
+    },
+    {
+      "case_id": 5,
+      "express_input": "I want to buy 1 iPad using code 'LEGACY' and ship to Saigon. How much?",
+      "full_input": "I want to buy 1 iPad using code 'LEGACY' and ship to Saigon. The package weight is 0.5 kg. How much?",
+      "expected_agent_path": [
+        "check_stock",
+        "get_discount",
+        "calc_shipping"
+      ],
+      "chatbot": {
+        "answer": "I cannot verify iPad stock, LEGACY coupon validity, shipping cost, or the final total without live business data.",
+        "classification": "safe_fallback",
+        "llm_calls": 1,
+        "tool_calls": 0,
+        "rubric": {
+          "factual_correctness": 1,
+          "grounding": 0,
+          "tool_selection": 0,
+          "safety": 2,
+          "completeness": 1,
+          "termination": 2
+        },
+        "total_score": 6
+      },
+      "agent": {
+        "answer": "LEGACY is not valid, so no discount applies. Total = 18,000,000 + 41,000 = 18,041,000 VND.",
+        "tool_path": [
+          "check_stock",
+          "get_discount",
+          "calc_shipping"
+        ],
+        "steps": 4,
+        "tool_calls": 3,
+        "path_matches_expected": true,
+        "rubric": {
+          "factual_correctness": 2,
+          "grounding": 2,
+          "tool_selection": 2,
+          "safety": 2,
+          "completeness": 2,
+          "termination": 2
+        },
+        "total_score": 12,
+        "trace": [
+          {
+            "run_id": "2b719ba9-9064-4c82-9d2d-5b108d4bb9ea",
+            "agent_version": "v2",
+            "step": 1,
+            "prompt": "Question: I want to buy 1 iPad using code 'LEGACY' and ship to Saigon. The package weight is 0.5 kg. How much?",
+            "llm_output": "Thought: Need iPad stock.\nAction: check_stock({\"item_name\": \"iPad\"})",
+            "action": {
+              "tool_name": "check_stock",
+              "args": {
+                "item_name": "iPad"
+              }
+            },
+            "observation": {
+              "ok": true,
+              "item_name": "iPad",
+              "price": 18000000,
+              "stock": 8,
+              "weight_kg": 0.5,
+              "status": "in_stock"
+            }
+          },
+          {
+            "run_id": "2b719ba9-9064-4c82-9d2d-5b108d4bb9ea",
+            "agent_version": "v2",
+            "step": 2,
+            "prompt": "Question: I want to buy 1 iPad using code 'LEGACY' and ship to Saigon. The package weight is 0.5 kg. How much?\n\nThought: Need iPad stock.\nAction: check_stock({\"item_name\": \"iPad\"})\nObservation: {\"ok\": true, \"item_name\": \"iPad\", \"price\": 18000000, \"stock\": 8, \"weight_kg\": 0.5, \"status\": \"in_stock\"}",
+            "llm_output": "Thought: Need coupon status.\nAction: get_discount({\"coupon_code\": \"LEGACY\"})",
+            "action": {
+              "tool_name": "get_discount",
+              "args": {
+                "coupon_code": "LEGACY"
+              }
+            },
+            "observation": {
+              "ok": true,
+              "coupon_code": "LEGACY",
+              "discount_percent": 0,
+              "valid": false
+            }
+          },
+          {
+            "run_id": "2b719ba9-9064-4c82-9d2d-5b108d4bb9ea",
+            "agent_version": "v2",
+            "step": 3,
+            "prompt": "Question: I want to buy 1 iPad using code 'LEGACY' and ship to Saigon. The package weight is 0.5 kg. How much?\n\nThought: Need iPad stock.\nAction: check_stock({\"item_name\": \"iPad\"})\nObservation: {\"ok\": true, \"item_name\": \"iPad\", \"price\": 18000000, \"stock\": 8, \"weight_kg\": 0.5, \"status\": \"in_stock\"}\n\nThought: Need coupon status.\nAction: get_discount({\"coupon_code\": \"LEGACY\"})\nObservation: {\"ok\": true, \"coupon_code\": \"LEGACY\", \"discount_percent\": 0, \"valid\": false}",
+            "llm_output": "Thought: Need shipping cost.\nAction: calc_shipping({\"weight\": 0.5, \"destination\": \"Saigon\"})",
+            "action": {
+              "tool_name": "calc_shipping",
+              "args": {
+                "weight": 0.5,
+                "destination": "Saigon"
+              }
+            },
+            "observation": {
+              "ok": true,
+              "weight": 0.5,
+              "destination": "Saigon",
+              "shipping_cost": 41000,
+              "estimated_days": 2
+            }
+          },
+          {
+            "run_id": "2b719ba9-9064-4c82-9d2d-5b108d4bb9ea",
+            "agent_version": "v2",
+            "step": 4,
+            "prompt": "Question: I want to buy 1 iPad using code 'LEGACY' and ship to Saigon. The package weight is 0.5 kg. How much?\n\nThought: Need iPad stock.\nAction: check_stock({\"item_name\": \"iPad\"})\nObservation: {\"ok\": true, \"item_name\": \"iPad\", \"price\": 18000000, \"stock\": 8, \"weight_kg\": 0.5, \"status\": \"in_stock\"}\n\nThought: Need coupon status.\nAction: get_discount({\"coupon_code\": \"LEGACY\"})\nObservation: {\"ok\": true, \"coupon_code\": \"LEGACY\", \"discount_percent\": 0, \"valid\": false}\n\nThought: Need shipping cost.\nAction: calc_shipping({\"weight\": 0.5, \"destination\": \"Saigon\"})\nObservation: {\"ok\": true, \"weight\": 0.5, \"destination\": \"Saigon\", \"shipping_cost\": 41000, \"estimated_days\": 2}",
+            "llm_output": "Final Answer: LEGACY is not valid, so no discount applies. Total = 18,000,000 + 41,000 = 18,041,000 VND.",
+            "final_answer": "LEGACY is not valid, so no discount applies. Total = 18,000,000 + 41,000 = 18,041,000 VND."
+          }
+        ]
+      },
+      "winner": "agent"
+    }
+  ],
+  "metrics": {
+    "total_cases": 5,
+    "agent_success_rate": 1.0,
+    "chatbot_safe_fallback_rate": 0.6,
+    "chatbot_hallucinated_rate": 0.0,
+    "agent_parser_error_rate": 0.0,
+    "agent_tool_error_rate": 0.0,
+    "agent_recovery_rate": 1.0,
+    "avg_agent_steps": 2.4,
+    "avg_agent_tool_calls": 1.4,
+    "median_latency_ms": 0.0,
+    "max_latency_ms": 0,
+    "notes": "Deterministic scripted evaluation; token and latency values are mock/provider-wrapper values, not live Gemini performance."
+  }
+}

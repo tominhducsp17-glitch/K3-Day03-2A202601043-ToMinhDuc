@@ -1,0 +1,4 @@
+{
+  "status": "not_run",
+  "reason": "Live Gemini evaluation is optional and should be recorded separately from deterministic scripted metrics."
+}

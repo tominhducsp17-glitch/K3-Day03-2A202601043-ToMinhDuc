@@ -1,0 +1,20 @@
+{
+  "protocol": "system prompt + user message + optional history -> one LLM call -> final response",
+  "tool_calls": 0,
+  "cases": [
+    {
+      "id": "static_return_policy",
+      "input": "Chinh sach doi tra la gi?",
+      "raw_answer": "Ban co the doi tra trong 7 ngay neu san pham con nguyen tem va hoa don.",
+      "classification": "correct",
+      "notes": "Static Q&A can be handled by the chatbot baseline without tool evidence."
+    },
+    {
+      "id": "multistep_iphone_winner_hanoi",
+      "input": "Toi muon mua 2 iPhone, dung ma WINNER va giao toi Ha Noi. Tong tien la bao nhieu?",
+      "raw_answer": "Minh khong the xac minh ton kho, ma WINNER, phi giao hang hoac tong tien vi khong co du lieu live. Can kiem tra gia iPhone, coupon va phi ship Ha Noi truoc.",
+      "classification": "safe_fallback",
+      "notes": "The baseline has no inventory, coupon, or shipping tool, so it should not invent a total."
+    }
+  ]
+}

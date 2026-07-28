@@ -1,0 +1,44 @@
+{
+  "name": "react_v2_recovery_trace_malformed_args",
+  "run_id": "example-react-v2-malformed-args-recovery",
+  "agent_version": "v2",
+  "provider": "scripted",
+  "model": "scripted-recovery",
+  "user_input": "Is iPhone available?",
+  "expected_path": [
+    "check_stock"
+  ],
+  "actual_path": [
+    "check_stock"
+  ],
+  "steps": [
+    {
+      "step": 1,
+      "llm_output": "Thought: Need stock.\nAction: check_stock({'item_name': 'iPhone'})",
+      "action": {
+        "tool_name": "check_stock",
+        "args": {
+          "item_name": "iPhone"
+        }
+      },
+      "observation": {
+        "ok": true,
+        "item_name": "iPhone",
+        "price": 25000000,
+        "stock": 15,
+        "weight_kg": 0.4,
+        "status": "in_stock"
+      }
+    },
+    {
+      "step": 2,
+      "llm_output": "Final Answer: iPhone is in stock.",
+      "final_answer": "iPhone is in stock."
+    }
+  ],
+  "metrics": {
+    "steps": 2,
+    "tool_calls": 1,
+    "status": "recovered"
+  }
+}

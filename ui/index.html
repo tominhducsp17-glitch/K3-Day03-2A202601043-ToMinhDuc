@@ -1,0 +1,500 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>&#272;&#7879; c&#7911;a th&#7847;y T&#244; &#272;&#7913;c</title>
+  <style>
+    :root {
+      --bg: #f7fbff;
+      --panel: #fffefd;
+      --ink: #17324d;
+      --muted: #68788c;
+      --line: #dfebe9;
+      --blue: #3278d6;
+      --blue-dark: #1d5fb8;
+      --mint: #e7f8ef;
+      --mint-line: #a9dec2;
+      --peach: #fff0df;
+      --peach-line: #f2c79c;
+      --rose: #fff0f3;
+      --rose-line: #f1b6c1;
+      --green: #247852;
+      --orange: #ad671d;
+      --code: #18283a;
+      --shadow: 0 14px 34px rgba(40, 75, 110, 0.12);
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      background: linear-gradient(180deg, #fff8ef 0%, #eef8ff 48%, #f8fff9 100%);
+      color: var(--ink);
+      font-family: Inter, Segoe UI, Arial, sans-serif;
+      letter-spacing: 0;
+    }
+
+    header {
+      background: rgba(255, 254, 253, 0.92);
+      border-bottom: 1px solid var(--line);
+      padding: 16px 24px;
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 2;
+      backdrop-filter: blur(14px);
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      min-width: 0;
+    }
+
+    .mark {
+      width: 44px;
+      height: 44px;
+      border-radius: 8px;
+      display: grid;
+      place-items: center;
+      background: var(--peach);
+      border: 1px solid var(--peach-line);
+      color: var(--orange);
+      font-size: 24px;
+      font-weight: 900;
+      flex: 0 0 auto;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(22px, 3vw, 31px);
+      line-height: 1.2;
+    }
+
+    main {
+      max-width: 1220px;
+      margin: 0 auto;
+      padding: 22px;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 380px;
+      gap: 18px;
+    }
+
+    .panel {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      box-shadow: var(--shadow);
+    }
+
+    .chat {
+      min-height: 640px;
+      display: grid;
+      grid-template-rows: 1fr auto;
+      overflow: hidden;
+    }
+
+    #messages {
+      padding: 18px;
+      overflow: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      background:
+        linear-gradient(#ffffffcc, #ffffffcc),
+        repeating-linear-gradient(0deg, transparent, transparent 31px, rgba(50, 120, 214, 0.035) 32px);
+    }
+
+    .message {
+      max-width: 82%;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 11px 14px 13px;
+      line-height: 1.5;
+      white-space: pre-wrap;
+      box-shadow: 0 8px 20px rgba(37, 78, 112, 0.08);
+    }
+
+    .message::before {
+      display: block;
+      margin-bottom: 5px;
+      font-size: 11px;
+      font-weight: 900;
+      letter-spacing: 0;
+      text-transform: uppercase;
+    }
+
+    .user {
+      align-self: flex-end;
+      background: #eaf3ff;
+      border-color: #bcd7f7;
+    }
+
+    .user::before {
+      content: "Bạn";
+      color: var(--blue-dark);
+    }
+
+    .agent {
+      align-self: flex-start;
+      background: var(--mint);
+      border-color: var(--mint-line);
+    }
+
+    .agent::before {
+      content: "Đệ";
+      color: var(--green);
+    }
+
+    .error {
+      align-self: flex-start;
+      background: var(--rose);
+      border-color: var(--rose-line);
+    }
+
+    .error::before {
+      content: "Lỗi";
+      color: #bd3545;
+    }
+
+    .composer {
+      border-top: 1px solid var(--line);
+      padding: 14px;
+      display: grid;
+      grid-template-columns: 1fr 110px;
+      gap: 10px;
+      background: #fffefd;
+    }
+
+    textarea, select, button {
+      width: 100%;
+      border-radius: 8px;
+      font: inherit;
+    }
+
+    textarea, select {
+      border: 1px solid var(--line);
+      padding: 11px 12px;
+      background: #fff;
+      color: var(--ink);
+      outline: none;
+    }
+
+    textarea:focus, select:focus {
+      border-color: #8dc4ff;
+      box-shadow: 0 0 0 3px rgba(50, 120, 214, 0.14);
+    }
+
+    textarea {
+      min-height: 58px;
+      resize: vertical;
+    }
+
+    button {
+      border: 0;
+      background: var(--blue);
+      color: #fff;
+      font-weight: 800;
+      cursor: pointer;
+      padding: 12px;
+      box-shadow: 0 10px 18px rgba(50, 120, 214, 0.22);
+      transition: transform 120ms ease, background 120ms ease, box-shadow 120ms ease;
+    }
+
+    button:hover:not(:disabled) {
+      background: var(--blue-dark);
+      transform: translateY(-1px);
+      box-shadow: 0 12px 22px rgba(50, 120, 214, 0.25);
+    }
+
+    button.secondary {
+      background: var(--peach);
+      color: var(--ink);
+      border: 1px solid var(--peach-line);
+      box-shadow: none;
+    }
+
+    button:disabled {
+      opacity: 0.55;
+      cursor: wait;
+    }
+
+    .side {
+      padding: 16px;
+      display: grid;
+      gap: 14px;
+      align-content: start;
+    }
+
+    .field { display: grid; gap: 7px; }
+
+    label {
+      color: var(--muted);
+      font-size: 13px;
+      font-weight: 800;
+    }
+
+    .metric-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+
+    .metric {
+      background: #fbfdff;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 10px;
+    }
+
+    .metric span {
+      display: block;
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 800;
+    }
+
+    .metric strong {
+      display: block;
+      margin-top: 4px;
+      font-size: 18px;
+    }
+
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      min-height: 26px;
+      padding: 4px 8px;
+      border-radius: 999px;
+      background: #edf4ff;
+      color: var(--blue);
+      font-size: 12px;
+      font-weight: 800;
+    }
+
+    .tag.green { background: #eaf7f0; color: var(--green); }
+    .tag.orange { background: #fff5e8; color: var(--orange); }
+
+    details {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #fff;
+      overflow: hidden;
+    }
+
+    summary {
+      padding: 10px 12px;
+      cursor: pointer;
+      font-weight: 800;
+      background: #f9fbfd;
+    }
+
+    pre {
+      margin: 0;
+      padding: 12px;
+      overflow: auto;
+      background: var(--code);
+      color: #eef6ff;
+      font: 12px/1.5 Consolas, Monaco, monospace;
+    }
+
+    .hint {
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.5;
+      margin: 0;
+    }
+
+    h2 {
+      margin: 4px 0 0;
+      font-size: 18px;
+    }
+
+    @media (max-width: 900px) {
+      main { grid-template-columns: 1fr; padding: 12px; }
+      header { align-items: flex-start; flex-direction: column; }
+      .message { max-width: 94%; }
+      .chat { min-height: 520px; }
+      .composer { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="brand">
+      <div class="mark">&#272;</div>
+      <div>
+        <h1>&#272;&#7879; c&#7911;a th&#7847;y T&#244; &#272;&#7913;c</h1>
+        <p class="hint">Có mặt đây, thầy hỏi gì con xử lý.</p>
+      </div>
+    </div>
+    <span id="serverStatus" class="tag orange">&#272;ang ki&#7875;m tra</span>
+  </header>
+
+  <main>
+    <section class="panel chat">
+      <div id="messages"></div>
+      <form id="chatForm" class="composer">
+        <textarea id="messageInput" placeholder="Nhắn cho Đệ của thầy Tô Đức..."></textarea>
+        <button id="sendButton" type="submit">Gửi</button>
+      </form>
+    </section>
+
+    <aside class="panel side">
+      <div class="field">
+        <label for="engine">Chế độ</label>
+        <select id="engine">
+          <option value="demo">Demo ổn định</option>
+          <option value="gemini">Gemini thật</option>
+        </select>
+      </div>
+
+      <div class="field">
+        <label for="sample">Câu thử nhanh</label>
+        <select id="sample"></select>
+      </div>
+
+      <button id="clearButton" class="secondary">Xóa chat</button>
+
+      <div class="metric-row">
+        <div class="metric"><span>Bước</span><strong id="steps">-</strong></div>
+        <div class="metric"><span>Tool calls</span><strong id="toolCalls">-</strong></div>
+      </div>
+
+      <div class="metric">
+        <span>Đường đi tool</span>
+        <strong id="toolPath">-</strong>
+      </div>
+
+      <section>
+        <h2>Trace</h2>
+        <div id="trace" class="side" style="padding:0"></div>
+      </section>
+
+      <p class="hint">
+        Demo chạy ổn định để test lab. Gemini thật dùng <code>GEMINI_API_KEY</code> trong <code>.env</code>.
+      </p>
+    </aside>
+  </main>
+
+  <script>
+    const samples = [
+      "What is your return policy?",
+      "What are your working hours?",
+      "Hôm nay ngày bao nhiêu?",
+      "Research: What are the latest practical use cases of AI agents?",
+      "I want to buy 2 iPhones using code 'WINNER' and ship to Hanoi. The package weight is 0.8 kg. What is the total price?",
+      "Can I buy 1 MacBook and ship to Saigon? How much?",
+      "I want to buy 1 iPad using code 'LEGACY' and ship to Saigon. The package weight is 0.5 kg. How much?"
+    ];
+    samples[2] = "H\u00f4m nay ng\u00e0y bao nhi\u00eau?";
+
+    const messages = document.getElementById("messages");
+    const form = document.getElementById("chatForm");
+    const input = document.getElementById("messageInput");
+    const engine = document.getElementById("engine");
+    const sample = document.getElementById("sample");
+    const sendButton = document.getElementById("sendButton");
+
+    addMessage("\u0110\u1ec7 c\u1ee7a th\u1ea7y T\u00f4 \u0110\u1ee9c nghe \u0111\u00e2y. Th\u1ea7y c\u1ee9 nh\u1eafn t\u1ef1 nhi\u00ean, con s\u1ebd tr\u1ea3 l\u1eddi ho\u1eb7c g\u1ecdi tool khi c\u1ea7n.", "agent");
+
+    sample.innerHTML = `<option value="">Chọn câu thử</option>` + samples.map((item, index) => (
+      `<option value="${index}">Case ${index + 1}: ${escapeHtml(item)}</option>`
+    )).join("");
+
+    sample.addEventListener("change", () => {
+      if (sample.value !== "") input.value = samples[Number(sample.value)];
+    });
+
+    document.getElementById("clearButton").addEventListener("click", () => {
+      messages.innerHTML = "";
+      renderMetrics(null);
+      document.getElementById("trace").innerHTML = "";
+    });
+
+    form.addEventListener("submit", async event => {
+      event.preventDefault();
+      const text = input.value.trim();
+      if (!text) return;
+
+      addMessage(text, "user");
+      input.value = "";
+      setLoading(true);
+
+      try {
+        const response = await fetch("/api/chat", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ message: text, engine: engine.value })
+        });
+        const data = await response.json();
+        if (!response.ok) throw new Error(data.message || data.error || "Request failed");
+
+        addMessage(data.answer, "agent");
+        renderMetrics(data);
+        renderTrace(data.trace || []);
+      } catch (error) {
+        addMessage(error.message, "error");
+      } finally {
+        setLoading(false);
+      }
+    });
+
+    async function checkServer() {
+      try {
+        const response = await fetch("/", { method: "GET" });
+        document.getElementById("serverStatus").textContent = response.ok ? "\u0110\u00e3 k\u1ebft n\u1ed1i" : "Server chưa sẵn sàng";
+        document.getElementById("serverStatus").className = response.ok ? "tag green" : "tag orange";
+      } catch {
+        document.getElementById("serverStatus").textContent = "Mở qua server";
+      }
+    }
+
+    function addMessage(text, kind) {
+      const node = document.createElement("div");
+      node.className = `message ${kind}`;
+      node.textContent = text;
+      messages.appendChild(node);
+      messages.scrollTop = messages.scrollHeight;
+    }
+
+    function renderMetrics(data) {
+      document.getElementById("steps").textContent = data ? data.steps : "-";
+      document.getElementById("toolCalls").textContent = data ? data.tool_calls : "-";
+      document.getElementById("toolPath").textContent = data && data.tool_path.length ? data.tool_path.join(" -> ") : "-";
+    }
+
+    function renderTrace(trace) {
+      document.getElementById("trace").innerHTML = trace.map(step => `
+        <details open>
+          <summary>Step ${step.step}${step.action ? " - " + escapeHtml(step.action.tool_name) : ""}</summary>
+          <pre>${escapeHtml(step.llm_output)}</pre>
+          ${step.observation ? `<pre>${escapeHtml(JSON.stringify(step.observation, null, 2))}</pre>` : ""}
+          ${step.final_answer ? `<pre>${escapeHtml(step.final_answer)}</pre>` : ""}
+        </details>
+      `).join("");
+    }
+
+    function setLoading(isLoading) {
+      sendButton.disabled = isLoading;
+      sendButton.textContent = isLoading ? "\u0110ang ch\u1ea1y" : "G\u1eedi";
+    }
+
+    function escapeHtml(value) {
+      return String(value)
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;")
+        .replaceAll("'", "&#039;");
+    }
+
+    checkServer();
+  </script>
+</body>
+</html>
